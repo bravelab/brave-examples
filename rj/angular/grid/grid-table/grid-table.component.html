@@ -1,0 +1,53 @@
+
+<div class="grid-table">
+  <div [ngStyle]="{'min-width': calcMinWidth()}">
+    <app-grid-filters *ngIf="advanced" [hidden]="hideFilters" [gridName]="gridName" [columns]="columns"
+                      [addBox]="gridActions?.length > 0"
+                      [columnWidth]="columnWidth">
+    </app-grid-filters>
+    <mat-table #table [dataSource]="dataSource"
+               matSort
+               (matSortChange)="onSort($event)">
+
+      <ng-container matColumnDef="gridActions" *ngIf="gridActions.length > 0">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button type="button" [matMenuTriggerFor]="menu" [attr.aria-label]="'grid.openGridMenu' | translate">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item type="button" *ngFor="let action of gridActions" (click)="emitActionClick(element, action.type)">
+              <mat-icon>{{ action.icon }}</mat-icon>
+              <span>{{ action.label  | capitalize }}</span>
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container *ngFor="let column of columns; let i = index" [matColumnDef]="column.columnDef">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column.header | capitalize }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" (dblclick)="emitRowClick(element, column)">
+          {{ column.cell(element) | configureData }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="getColumns()"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: getColumns();"></mat-row>
+    </mat-table>
+
+    <div *ngIf="gridData.length === 0" fxLayout="row" fxLayoutAlign="center center" class="grid-table__message">
+      <p>{{ noDataMessage }}</p>
+    </div>
+  </div>
+</div>
+
+<mat-paginator #paginator
+               [length]="gridTotalElements"
+               [pageSizeOptions]="itemsPerPagePagination"
+               [showFirstLastButtons]="true"
+               (page)="onPaginate($event)">
+</mat-paginator>
+

@@ -1,0 +1,13 @@
+.grid-filters {
+  *:first-child {
+    margin-left: 24px;
+  }
+  *:last-child {
+    margin-right: 24px;
+  }
+}
+
+.grid-action-placeholder, .mat-column-gridActions {
+  flex: 0;
+  min-width: 40px;
+}

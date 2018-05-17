@@ -1,0 +1,8 @@
+<form [formGroup]="formGroup" class="grid-form" fxLayout="column">
+  <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxFlex="column">
+    <ng-content></ng-content>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button type="submit">{{ 'grid.filter' | translate | capitalize }}</button>
+  </div>
+</form>

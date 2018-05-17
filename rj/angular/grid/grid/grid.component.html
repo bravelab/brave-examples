@@ -1,0 +1,32 @@
+<mat-card class="grid">
+  <mat-card-header class="grid__header" *ngIf="advanced">
+
+    <div>
+      <button mat-icon-button type="button" (click)="toggleSearch()">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button type="button" (click)="toggleFilters()">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <button mat-icon-button type="button" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+
+      <div *ngFor="let action of pageActions">
+        <button mat-mini-fab type="button" (click)="emitActionClick(null, action.type)"
+                [attr.aria-label]="action.label | capitalize">
+          <mat-icon>{{ action.icon }}</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+  <div class="grid__search" *ngIf="advanced" [hidden]="searchComponent.hideSearch">
+    <ng-content></ng-content>
+  </div>
+  <app-grid-table [gridName]="gridName" [gridData]="gridData" [noDataMessage]="noDataMessage"
+                  [gridTotalElements]="gridTotalElements"
+                  [columns]="columns"
+                  [gridActions]="gridActions" [advanced]="advanced"
+                  (rowClick)="forwardRowClick($event)" (actionClick)="forwardActionClick($event)">
+  </app-grid-table>
+</mat-card>

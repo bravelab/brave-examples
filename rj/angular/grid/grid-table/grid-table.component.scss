@@ -1,0 +1,18 @@
+.grid-table {
+  overflow: auto;
+  &__message {
+    padding: 16px 24px 0;
+  }
+
+  .mat-row {
+    align-items: stretch;
+    .mat-cell {
+      cursor: pointer;
+      text-align: center;
+    }
+  }
+  .mat-column-gridActions {
+    flex: 0;
+    min-width: 40px;
+  }
+}

@@ -1,0 +1,8 @@
+<div class="grid-filters mat-form-compression-wrapper" fxLayout="row" fxLayoutAlign="space-evenly stretch" fxLayoutGap="10px">
+  <app-input-debounce *ngFor="let column of columns; let i = index"
+                      fxFlex="auto" fxLayout="row" fxLayoutAlign="center center"
+                      [delay]="delay" [id]="column.filterDef" [label]="column.header" [width]="columnWidth"
+                      (value)="onFilter($event)">
+  </app-input-debounce>
+  <div class="grid-action-placeholder" *ngIf="addBox"></div>
+</div>

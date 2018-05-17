@@ -1,0 +1,10 @@
+.grid {
+  &__header {
+    display: flex;
+    justify-content: space-between
+  }
+
+  &__search {
+    padding: 0 24px;
+  }
+}
